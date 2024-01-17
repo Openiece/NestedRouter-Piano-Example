@@ -1,20 +1,54 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+// App.tsx
+import React from "react";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { NavigationContainer } from "@react-navigation/native";
+import PetStackNavigator from "./router/petStackNavigator";
+import { CatIcon } from "./icons/Cat-Icon";
+import { AboutIcon } from "./icons/Dog-Icon";  
+import { Piano } from "./screens/Piano";
+import { PianoIcon } from "./icons/PianoIcon"
 
-export default function App() {
+
+
+const Tab = createBottomTabNavigator();
+
+const App: React.FC = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Tab.Navigator
+        screenOptions={{
+          tabBarActiveTintColor: "red",
+          headerShown: false,
+          tabBarItemStyle: { marginBottom: -20 },
+        }}
+      >
+        <Tab.Screen
+          name="Home"
+          component={PetStackNavigator}
+          options={{
+            tabBarIcon: ({ color }) => <CatIcon color={color} />,
+            tabBarShowLabel: false,
+          }}
+        />
+        <Tab.Screen
+          name="AboutScreen"
+          component={PetStackNavigator}
+          options={{
+            tabBarIcon: ({ color }) => <AboutIcon color={color} />,
+            tabBarShowLabel: false,
+          }}
+        />
+                <Tab.Screen
+          name="PianoScreen"
+          component={Piano}
+          options={{
+            tabBarIcon: ({ color }) => <PianoIcon color={color} />,
+            tabBarShowLabel: false,
+          }}
+        />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
